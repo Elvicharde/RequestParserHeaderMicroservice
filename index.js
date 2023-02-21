@@ -24,6 +24,22 @@ app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
+// the /api/whoami endpoint
+app.get("/api/whoami", Handler).post("/api/whoami", Handler)
+
+function Handler(req, res){
+  let headerInfo = req.rawHeaders;
+  // required headers
+  let host  = headerInfo[headerInfo.indexOf("Host") + 1]
+  let language = headerInfo[headerInfo.indexOf("Accept-Language") + 1]
+  let userAgent = headerInfo[headerInfo.indexOf("User-Agent") + 1]
+
+  respObj = {ipaddress: host, language: language, software: userAgent}
+
+  console.log(respObj)
+  res.json(respObj);    // send the response  
+}
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
