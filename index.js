@@ -30,7 +30,7 @@ app.get("/api/whoami", Handler).post("/api/whoami", Handler)
 function Handler(req, res){
   let headerInfo = req.rawHeaders;
   // required headers
-  let host  = headerInfo[headerInfo.indexOf("Host") + 1]
+  let host  = headerInfo[headerInfo.indexOf("X-Forwarded-For") + 1]
   let language = headerInfo[headerInfo.indexOf("Accept-Language") + 1]
   let userAgent = headerInfo[headerInfo.indexOf("User-Agent") + 1]
 
